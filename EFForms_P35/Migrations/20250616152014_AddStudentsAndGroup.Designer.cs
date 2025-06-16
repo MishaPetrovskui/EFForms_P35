@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFForms_P35.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20250611162645_addStatus")]
-    partial class addStatus
+    [Migration("20250616152014_AddStudentsAndGroup")]
+    partial class AddStudentsAndGroup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,27 +21,50 @@ namespace EFForms_P35.Migrations
                 .HasAnnotation("ProductVersion", "7.0.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("EFForms_P35.Models.Note", b =>
+            modelBuilder.Entity("EFForms_P35.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("EFForms_P35.Models.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("EFForms_P35.Models.Student", b =>
+                {
+                    b.HasOne("EFForms_P35.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
                 });
 #pragma warning restore 612, 618
         }

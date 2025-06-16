@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFForms_P35.Migrations
 {
-    [DbContext(typeof(Models.NotesContext))]
+    [DbContext(typeof(Models.UniversityContext))]
     [Migration("20250611154019_Aboba")]
     partial class Aboba
     {

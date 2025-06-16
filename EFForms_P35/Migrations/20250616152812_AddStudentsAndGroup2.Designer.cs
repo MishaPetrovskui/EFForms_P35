@@ -2,6 +2,7 @@
 using EFForms_P35.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFForms_P35.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    partial class NotesContextModelSnapshot : ModelSnapshot
+    [Migration("20250616152812_AddStudentsAndGroup2")]
+    partial class AddStudentsAndGroup2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,16 +42,11 @@ namespace EFForms_P35.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CuratorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CuratorId");
 
                     b.ToTable("Groups");
                 });
@@ -74,17 +72,6 @@ namespace EFForms_P35.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("EFForms_P35.Models.Group", b =>
-                {
-                    b.HasOne("EFForms_P35.Models.Curator", "Curator")
-                        .WithMany()
-                        .HasForeignKey("CuratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Curator");
                 });
 
             modelBuilder.Entity("EFForms_P35.Models.Student", b =>

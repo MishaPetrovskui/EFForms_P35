@@ -11,111 +11,50 @@ namespace EFForms_P35
             InitializeComponent();
         }
 
-        private void UpdateNotesGrid()
+        private void UpdateStudentsGrid()
         {
-            using (var context = new NotesContext())
+            using (var context = new UniversityContext())
             {
                 context.Database.EnsureCreated();
-                var notes = context.Notes.ToList();
+                Group? group = dataGridView1.CurrentRow.DataBoundItem as Group;
+                if (group == null) group = new Group { Id = 0 };
+                var notes = context.Students.Include(s => s.Group).Where(s => s.Group.Id == group.Id).ToList();
+                dataGridView2.DataSource = notes;
+            }
+        }
+
+        private void UpdateGroupsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Groups.ToList();
                 dataGridView1.DataSource = notes;
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            UpdateNotesGrid();
+            UpdateGroupsGrid();
+            UpdateStudentsGrid();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            UpdateStudentsGrid();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == string.Empty || textBox1.Text == string.Empty || comboBox1.Text == string.Empty)
-            {
-                MessageBox.Show("Не всі поля заповненні", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            using (var context = new NotesContext())
-            {
-                context.Database.EnsureCreated();
-                context.Notes.Add(new Note { Name = textBox1.Text, Description = textBox2.Text, Status = comboBox1.Text });
-                context.SaveChanges();
-            }
-            UpdateNotesGrid();
-            textBox1.Clear();
-            textBox2.Clear();
-            if (comboBox1.SelectedIndex == -1)
-                return;
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            // MessageBox.Show($"dataGridView1.CurrentCell = {dataGridView1.CurrentCell}\ndataGrinView1_CellContentClic");
-            Note? note = dataGridView1.CurrentRow.DataBoundItem as Note;
-            if (note == null) return;
-            textBox1.Text = note.Name;
-            textBox2.Text = note.Description;
-            textBox3.Text = Convert.ToString(note.Id);
-            comboBox1.Text = note.Status;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (textBox2.Text == string.Empty || textBox1.Text == string.Empty || comboBox1.Text == string.Empty)
-            {
-                MessageBox.Show("Не всі поля заповненні", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            using (var context = new NotesContext())
-            {
-                context.Database.EnsureCreated();
-                Note note = context.Notes.Find(Convert.ToInt32(textBox3.Text));
-                if (note == null) return;
-                note.Name = textBox1.Text;
-                note.Description = textBox2.Text;
-                note.Status = comboBox1.Text;
-                context.SaveChanges();
-            }
-            UpdateNotesGrid();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (textBox2.Text == string.Empty || textBox1.Text == string.Empty || comboBox1.Text == string.Empty)
-            {
-                MessageBox.Show("Не всі поля заповненні", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            using (var context = new NotesContext())
-            {
-                context.Database.EnsureCreated();
-                var note = Convert.ToInt32(textBox3.Text);
-                if (note == null) return;
-                var a = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.OKCancel);
-                if (a == DialogResult.Cancel) return;
-                context.Notes.Remove(context.Notes.Find(note));
-                context.SaveChanges();
-            }
-            UpdateNotesGrid();
+            Form2 form2 = new Form2();
+            form2.startGroup = dataGridView1.CurrentRow.DataBoundItem as Group;
+            form2.ShowDialog();
+            UpdateStudentsGrid();
         }
     }
 }
