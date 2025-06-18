@@ -3,6 +3,7 @@ using System;
 using EFForms_P35.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFForms_P35.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    partial class NotesContextModelSnapshot : ModelSnapshot
+    [Migration("20250618154029_AddShop")]
+    partial class AddShop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

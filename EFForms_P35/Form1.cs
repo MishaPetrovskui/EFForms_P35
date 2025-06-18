@@ -11,37 +11,68 @@ namespace EFForms_P35
             InitializeComponent();
         }
 
-        private void UpdateStudentsGrid()
+        private void UpdateGoodsGrid()
         {
             using (var context = new UniversityContext())
             {
                 context.Database.EnsureCreated();
-                Group? group = dataGridView1.CurrentRow.DataBoundItem as Group;
-                if (group == null) group = new Group { Id = 0 };
-                var notes = context.Students.Include(s => s.Group).Where(s => s.Group.Id == group.Id).ToList();
+                var notes = context.Goods.ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
+        private void UpdateСlientsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Сlients.ToList();
                 dataGridView2.DataSource = notes;
             }
         }
 
-        private void UpdateGroupsGrid()
+        private void UpdateOrdersGrid()
         {
             using (var context = new UniversityContext())
             {
                 context.Database.EnsureCreated();
-                var notes = context.Groups.ToList();
-                dataGridView1.DataSource = notes;
+                var notes = context.Orders.Include(s => s.Сlients).ToList();
+                dataGridView3.DataSource = notes;
+            }
+        }
+
+        private void UpdateOrderDetailsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.OrderDetails.Include(s => s.Orders).Include(s => s.Goods).ToList();
+                dataGridView5.DataSource = notes;
+            }
+        }
+
+        private void UpdatePaymentGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Payment.Include(s => s.Orders).ToList();
+                dataGridView4.DataSource = notes;
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            UpdateGroupsGrid();
-            UpdateStudentsGrid();
+            UpdateGoodsGrid();
+            UpdateOrdersGrid();
+            UpdatePaymentGrid();
+            UpdateOrderDetailsGrid();
+            UpdateСlientsGrid();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            UpdateStudentsGrid();
+
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -52,9 +83,12 @@ namespace EFForms_P35
         private void button1_Click(object sender, EventArgs e)
         {
             Form2 form2 = new Form2();
-            form2.startGroup = dataGridView1.CurrentRow.DataBoundItem as Group;
             form2.ShowDialog();
-            UpdateStudentsGrid();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

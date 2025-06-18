@@ -1,4 +1,5 @@
 ﻿using EFForms_P35.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,56 @@ namespace EFForms_P35
 {
     public partial class Form2 : Form
     {
-        public Group? startGroup { get; set; } = null;
+        private void UpdateGoodsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Goods.ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
+        private void UpdateСlientsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Сlients.ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
+        private void UpdateOrdersGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Orders.Include(s => s.Сlients).ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
+        private void UpdateOrderDetailsGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.OrderDetails.Include(s => s.Orders).Include(s => s.Goods).ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
+        private void UpdatePaymentGrid()
+        {
+            using (var context = new UniversityContext())
+            {
+                context.Database.EnsureCreated();
+                var notes = context.Payment.Include(s => s.Orders).ToList();
+                dataGridView1.DataSource = notes;
+            }
+        }
+
         public Form2()
         {
             InitializeComponent();
@@ -22,36 +72,56 @@ namespace EFForms_P35
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            using (var context = new UniversityContext())
-            {
-                var groups = context.Groups.ToArray();
-                if (groups == null) return;
-                comboBox1.Items.AddRange(groups);
 
-                if (startGroup != null) { comboBox1.SelectedIndex = groups.ToList().FindIndex(group => group.Id == startGroup.Id); }
-            }
-            comboBox1.SelectedItem = startGroup;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == string.Empty || comboBox1.Text == string.Empty || textBox2.Text == string.Empty)
-            {
-                MessageBox.Show("Не всі поля заповненні", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            using (var context = new UniversityContext())
-            {
-                context.Database.EnsureCreated();
-                Group? group = comboBox1.SelectedItem as Group;
-                if (group == null) group = new Group { Id = 0 };
-                context.Students.Add(new Student { Name = textBox1.Text, Group = context.Groups.Find(group.Id), AVG = Convert.ToInt32(textBox2.Text) });
-                context.SaveChanges();
-            }
-            this.Close();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (var context = new UniversityContext())
+            {
+                var con = comboBox1.SelectedIndex;
+                switch (con)
+                {
+                    case 0:
+                        UpdateGoodsGrid();
+                        label2.Text = "Назва"; label2.Visible = true; label3.Text = "Ціна"; label3.Visible = true; label4.Text = "Категорія"; label4.Visible = true; label5.Text = "Кількість у складі"; label5.Visible = true; label9.Visible = false; label10.Visible = false; label6.Visible = false; label7.Visible = false;
+                        dateTimePicker1.Visible = false; comboBox2.Visible = false; comboBox3.Visible = false; comboBox4.Visible = false;
+                        textBox1.Visible = true; textBox2.Visible = true; textBox3.Visible = true; textBox4.Visible = true;
+                        break;
+                    case 1:
+                        UpdateСlientsGrid();
+                        textBox1.Visible = true; textBox2.Visible = true; textBox3.Visible = true; textBox4.Visible = false; dateTimePicker1.Visible = false; comboBox2.Visible = false; comboBox3.Visible = false; comboBox4.Visible = false;
+                        label2.Text = "Імя"; label2.Visible = true; label3.Text = "Прізвище"; label3.Visible = true; label4.Text = "Номер телефону"; label4.Visible = true; label5.Text = "Кількість у складі"; label5.Visible = false; label9.Visible = false; label10.Visible = false; label6.Visible = false; label7.Visible = false;
+                        break;
+                    case 2:
+                        UpdateOrdersGrid();
+                        
+                        break;
+                    case 3:
+                        UpdateOrderDetailsGrid();
+                        label2.Text = "Статус"; label2.Visible = true; label3.Visible = false; label4.Visible = false; label5.Visible = false; label9.Visible = false; label10.Visible = false; label6.Visible = false; label7.Visible = false;
+                        dateTimePicker1.Visible = false; comboBox2.Visible = false; comboBox3.Visible = false; comboBox4.Visible = false;
+                        textBox1.Visible = true; textBox2.Visible = true; textBox3.Visible = true; textBox4.Visible = true;
+                        break;
+                    case 4:
+                        UpdatePaymentGrid();
+                        
+                        break;
+                }
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
