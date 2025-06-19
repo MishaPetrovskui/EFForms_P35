@@ -39,6 +39,22 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
+            label6 = new Label();
+            textBox1 = new TextBox();
+            label7 = new Label();
+            textBox3 = new TextBox();
+            label8 = new Label();
+            textBox4 = new TextBox();
+            label9 = new Label();
+            label10 = new Label();
+            comboBox1 = new ComboBox();
+            button2 = new Button();
+            comboBox2 = new ComboBox();
+            button3 = new Button();
+            comboBox3 = new ComboBox();
+            label11 = new Label();
+            dateTimePicker1 = new DateTimePicker();
+            label12 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
@@ -58,7 +74,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(12, 239);
+            button1.Location = new Point(12, 415);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 12;
@@ -148,11 +164,166 @@
             label5.TabIndex = 21;
             label5.Text = "Оплати";
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 310);
+            label6.Name = "label6";
+            label6.Size = new Size(104, 15);
+            label6.TabIndex = 22;
+            label6.Text = "Пошук за назвою";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(12, 328);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 23;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(122, 218);
+            label7.Name = "label7";
+            label7.Size = new Size(59, 15);
+            label7.TabIndex = 24;
+            label7.Text = "Категорія";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(122, 284);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(100, 23);
+            textBox3.TabIndex = 29;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(122, 266);
+            label8.Name = "label8";
+            label8.Size = new Size(65, 15);
+            label8.TabIndex = 28;
+            label8.Text = "Макс. ціна";
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(12, 284);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(100, 23);
+            textBox4.TabIndex = 27;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(8, 266);
+            label9.Name = "label9";
+            label9.Size = new Size(57, 15);
+            label9.TabIndex = 26;
+            label9.Text = "Мін. ціна";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(122, 310);
+            label10.Name = "label10";
+            label10.Size = new Size(78, 15);
+            label10.TabIndex = 30;
+            label10.Text = "Сортувати за";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Назва", "Зростання ціни", "Спадання ціни", "Кількість" });
+            comboBox1.Location = new Point(122, 328);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(112, 23);
+            comboBox1.TabIndex = 31;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(37, 386);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 32;
+            button2.Text = "Застосувати";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Назва", "Зростання ціни", "Спадання ціни", "Кількість" });
+            comboBox2.Location = new Point(122, 236);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(112, 23);
+            comboBox2.TabIndex = 33;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(118, 386);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 34;
+            button3.Text = "Скасувати";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // comboBox3
+            // 
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "Товари", "Клієнти", "Замовлення", "Деталі замовлення", "Оплати" });
+            comboBox3.Location = new Point(12, 236);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(100, 23);
+            comboBox3.TabIndex = 36;
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(12, 218);
+            label11.Name = "label11";
+            label11.Size = new Size(83, 15);
+            label11.TabIndex = 35;
+            label11.Text = "Вибір таблиці";
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(12, 357);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(210, 23);
+            dateTimePicker1.TabIndex = 37;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(12, 339);
+            label12.Name = "label12";
+            label12.Size = new Size(32, 15);
+            label12.TabIndex = 38;
+            label12.Text = "Дата";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(708, 450);
+            Controls.Add(label12);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(comboBox3);
+            Controls.Add(label11);
+            Controls.Add(button3);
+            Controls.Add(comboBox2);
+            Controls.Add(button2);
+            Controls.Add(comboBox1);
+            Controls.Add(label10);
+            Controls.Add(textBox3);
+            Controls.Add(label8);
+            Controls.Add(textBox4);
+            Controls.Add(label9);
+            Controls.Add(label7);
+            Controls.Add(textBox1);
+            Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(dataGridView5);
@@ -189,5 +360,21 @@
         private Label label3;
         private Label label4;
         private Label label5;
+        private Label label6;
+        private TextBox textBox1;
+        private Label label7;
+        private TextBox textBox3;
+        private Label label8;
+        private TextBox textBox4;
+        private Label label9;
+        private Label label10;
+        private ComboBox comboBox1;
+        private Button button2;
+        private ComboBox comboBox2;
+        private Button button3;
+        private ComboBox comboBox3;
+        private Label label11;
+        private DateTimePicker dateTimePicker1;
+        private Label label12;
     }
 }

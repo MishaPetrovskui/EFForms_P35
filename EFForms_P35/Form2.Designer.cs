@@ -39,10 +39,8 @@
             label4 = new Label();
             textBox4 = new TextBox();
             label5 = new Label();
-            dataGridView2 = new DataGridView();
             label9 = new Label();
             label10 = new Label();
-            dataGridView3 = new DataGridView();
             comboBox2 = new ComboBox();
             button1 = new Button();
             button2 = new Button();
@@ -50,12 +48,8 @@
             button4 = new Button();
             dateTimePicker1 = new DateTimePicker();
             comboBox3 = new ComboBox();
-            comboBox4 = new ComboBox();
-            label6 = new Label();
             label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
@@ -64,8 +58,9 @@
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(245, 135);
+            dataGridView1.Size = new Size(241, 269);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // comboBox1
             // 
@@ -159,15 +154,6 @@
             label5.Text = "Ціна";
             label5.Visible = false;
             // 
-            // dataGridView2
-            // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(12, 146);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowTemplate.Height = 25;
-            dataGridView2.Size = new Size(123, 135);
-            dataGridView2.TabIndex = 15;
-            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -188,20 +174,10 @@
             label10.Text = "Спосіб оплати";
             label10.Visible = false;
             // 
-            // dataGridView3
-            // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(134, 146);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.RowTemplate.Height = 25;
-            dataGridView3.Size = new Size(123, 135);
-            dataGridView3.TabIndex = 20;
-            // 
             // comboBox2
             // 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Готівка", "Карта" });
             comboBox2.Location = new Point(263, 166);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(121, 23);
@@ -216,6 +192,7 @@
             button1.TabIndex = 25;
             button1.Text = "Add";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // button2
             // 
@@ -235,6 +212,7 @@
             button3.TabIndex = 27;
             button3.Text = "Delete";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
@@ -244,6 +222,7 @@
             button4.TabIndex = 28;
             button4.Text = "Edit";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // dateTimePicker1
             // 
@@ -257,38 +236,16 @@
             // 
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Готівка", "Карта" });
-            comboBox3.Location = new Point(443, 210);
+            comboBox3.Location = new Point(443, 166);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(121, 23);
             comboBox3.TabIndex = 29;
             comboBox3.Visible = false;
             // 
-            // comboBox4
-            // 
-            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "Готівка", "Карта" });
-            comboBox4.Location = new Point(263, 210);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(121, 23);
-            comboBox4.TabIndex = 30;
-            comboBox4.Visible = false;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(263, 192);
-            label6.Name = "label6";
-            label6.Size = new Size(87, 15);
-            label6.TabIndex = 31;
-            label6.Text = "Спосіб оплати";
-            label6.Visible = false;
-            // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(443, 192);
+            label7.Location = new Point(443, 148);
             label7.Name = "label7";
             label7.Size = new Size(87, 15);
             label7.TabIndex = 32;
@@ -301,8 +258,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(576, 293);
             Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(comboBox4);
             Controls.Add(comboBox3);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -310,10 +265,8 @@
             Controls.Add(button1);
             Controls.Add(comboBox2);
             Controls.Add(label10);
-            Controls.Add(dataGridView3);
             Controls.Add(label9);
             Controls.Add(dateTimePicker1);
-            Controls.Add(dataGridView2);
             Controls.Add(label5);
             Controls.Add(textBox4);
             Controls.Add(label4);
@@ -329,8 +282,6 @@
             Text = "Студент";
             Load += Form2_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -348,10 +299,8 @@
         private Label label4;
         private TextBox textBox4;
         private Label label5;
-        private DataGridView dataGridView2;
         private Label label9;
         private Label label10;
-        private DataGridView dataGridView3;
         private ComboBox comboBox2;
         private Button button1;
         private Button button2;
@@ -359,8 +308,6 @@
         private Button button4;
         private DateTimePicker dateTimePicker1;
         private ComboBox comboBox3;
-        private ComboBox comboBox4;
-        private Label label6;
         private Label label7;
     }
 }
