@@ -55,6 +55,7 @@
             label11 = new Label();
             dateTimePicker1 = new DateTimePicker();
             label12 = new Label();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
@@ -232,6 +233,7 @@
             // 
             // comboBox1
             // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Назва", "Зростання ціни", "Спадання ціни", "Кількість" });
             comboBox1.Location = new Point(122, 328);
@@ -251,6 +253,7 @@
             // 
             // comboBox2
             // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "Назва", "Зростання ціни", "Спадання ціни", "Кількість" });
             comboBox2.Location = new Point(122, 236);
@@ -270,6 +273,7 @@
             // 
             // comboBox3
             // 
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Товари", "Клієнти", "Замовлення", "Деталі замовлення", "Оплати" });
             comboBox3.Location = new Point(12, 236);
@@ -303,11 +307,22 @@
             label12.TabIndex = 38;
             label12.Text = "Дата";
             // 
+            // button4
+            // 
+            button4.Location = new Point(125, 415);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 39;
+            button4.Text = "Task";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(708, 450);
+            Controls.Add(button4);
             Controls.Add(label12);
             Controls.Add(dateTimePicker1);
             Controls.Add(comboBox3);
@@ -376,5 +391,6 @@
         private Label label11;
         private DateTimePicker dateTimePicker1;
         private Label label12;
+        private Button button4;
     }
 }

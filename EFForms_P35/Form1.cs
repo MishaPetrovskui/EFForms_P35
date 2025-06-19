@@ -103,7 +103,7 @@ namespace EFForms_P35
             label8.Text = "Макс. ціна"; label8.Visible = true;
             label9.Text = "Мін. ціна"; label9.Visible = true;
             label10.Text = "Сортувати за"; label10.Visible = true;
-            
+
 
             textBox1.Visible = true;
             textBox3.Visible = true;
@@ -208,36 +208,54 @@ namespace EFForms_P35
             HideAllControls();
             /*using (var context = new UniversityContext())
             {
-                // Додаємо клієнтів
-                var client1 = new Сlients { Name = "Ivan", Surname = "Ivanov", ContactNumber = "+380991112233" };
-                var client2 = new Сlients { Name = "Anna", Surname = "Petrova", ContactNumber = "+380503334455" };
-
-                // Додаємо товари
-                var good1 = new Goods { Name = "Laptop", Price = 25000, Category = "Electronics", QuantityInStock = 10 };
-                var good2 = new Goods { Name = "Phone", Price = 12000, Category = "Electronics", QuantityInStock = 15 };
-
-                // Додаємо замовлення
-                var order1 = new Orders { Сlients = client1, DateOfRegistration = DateTime.Now, Status = "New" };
-                var order2 = new Orders { Сlients = client2, DateOfRegistration = DateTime.Now, Status = "Paid" };
-
-                // Деталі замовлення
-                var orderDetail1 = new OrderDetails { Orders = order1, Goods = good1, TotalAmount = good1.Price };
-                var orderDetail2 = new OrderDetails { Orders = order2, Goods = good2, TotalAmount = good2.Price };
-
-                // Оплати
-                var payment1 = new Payment { Orders = order2, Sum = good2.Price, PaymentMethod = "Credit Card", DateOfPayment = DateTime.Now };
-
-                // Додаємо у базу
-                context.Сlients.AddRange(client1, client2);
-                context.Goods.AddRange(good1, good2);
-                context.Orders.AddRange(order1, order2);
-                context.OrderDetails.AddRange(orderDetail1, orderDetail2);
-                context.Payment.Add(payment1);
-
-                // Зберігаємо
+                // Очищення бази (якщо потрібно)
+                context.Payment.RemoveRange(context.Payment);
+                context.OrderDetails.RemoveRange(context.OrderDetails);
+                context.Orders.RemoveRange(context.Orders);
+                context.Goods.RemoveRange(context.Goods);
+                context.Сlients.RemoveRange(context.Сlients);
                 context.SaveChanges();
 
-                Console.WriteLine("Базу даних успішно заповнено!");
+                // Клієнти
+                var client1 = new Сlients { Name = "Ivan", Surname = "Ivanov", ContactNumber = "+380991112233" }; // 4 замовлення
+                var client2 = new Сlients { Name = "Anna", Surname = "Petrova", ContactNumber = "+380503334455" }; // 1 замовлення
+                var client3 = new Сlients { Name = "Ivan", Surname = "Petrov", ContactNumber = "+380631112244" }; // 0 замовлень
+
+                // Товари
+                var good1 = new Goods { Name = "Laptop", Price = 25000, Category = "Electronics", QuantityInStock = 10 };
+                var good2 = new Goods { Name = "Phone", Price = 12000, Category = "Electronics", QuantityInStock = 2 };   // <5
+                var good3 = new Goods { Name = "Mouse", Price = 300, Category = "Accessories", QuantityInStock = 4 };     // <5
+                var good4 = new Goods { Name = "Monitor", Price = 5000, Category = "Electronics", QuantityInStock = 20 };
+
+                // Замовлення
+                var order1 = new Orders { Сlients = client1, DateOfRegistration = DateTime.Now.AddDays(-40), Status = "New" };      // Неоплачений
+                var order2 = new Orders { Сlients = client1, DateOfRegistration = DateTime.Now.AddDays(-20), Status = "Delivered" };
+                var order3 = new Orders { Сlients = client1, DateOfRegistration = DateTime.Now.AddDays(-10), Status = "Delivered" };
+                var order4 = new Orders { Сlients = client1, DateOfRegistration = DateTime.Now.AddDays(-5), Status = "Delivered" };
+
+                var order5 = new Orders { Сlients = client2, DateOfRegistration = DateTime.Now.AddDays(-3), Status = "In progress" };
+
+                // Деталі замовлення
+                var od1 = new OrderDetails { Orders = order1, Goods = good1, TotalAmount = good1.Price };
+                var od2 = new OrderDetails { Orders = order2, Goods = good2, TotalAmount = good2.Price };
+                var od3 = new OrderDetails { Orders = order3, Goods = good3, TotalAmount = good3.Price };
+                var od4 = new OrderDetails { Orders = order4, Goods = good4, TotalAmount = good4.Price };
+                var od5 = new OrderDetails { Orders = order5, Goods = good2, TotalAmount = good2.Price };
+
+                // Оплати (order1 — не оплачено)
+                var pay2 = new Payment { Orders = order2, Sum = good2.Price, PaymentMethod = "Card", DateOfPayment = DateTime.Now.AddDays(-19) };
+                var pay3 = new Payment { Orders = order3, Sum = good3.Price, PaymentMethod = "Cash", DateOfPayment = DateTime.Now.AddDays(-8) };
+                var pay4 = new Payment { Orders = order4, Sum = good4.Price, PaymentMethod = "Card", DateOfPayment = DateTime.Now.AddDays(-4) };
+                var pay5 = new Payment { Orders = order5, Sum = good2.Price, PaymentMethod = "Card", DateOfPayment = DateTime.Now.AddDays(-1) };
+
+                // Додавання
+                context.Сlients.AddRange(client1, client2, client3);
+                context.Goods.AddRange(good1, good2, good3, good4);
+                context.Orders.AddRange(order1, order2, order3, order4, order5);
+                context.OrderDetails.AddRange(od1, od2, od3, od4, od5);
+                context.Payment.AddRange(pay2, pay3, pay4, pay5);
+
+                context.SaveChanges();
             }*/
         }
 
@@ -488,6 +506,12 @@ namespace EFForms_P35
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.ShowDialog();
         }
     }
 }
